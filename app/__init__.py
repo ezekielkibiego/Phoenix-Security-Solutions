@@ -2,10 +2,10 @@ from flask import Flask
 from config import config_options
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
-from flask_login import LoginManager, login_manager
+from flask_login import LoginManager
 
-bootstrap = Bootstrap
-db = SQLAlchemy
+bootstrap = Bootstrap()
+db = SQLAlchemy()
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
