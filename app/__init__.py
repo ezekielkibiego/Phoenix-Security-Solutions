@@ -17,6 +17,7 @@ def create_app(config_name):
   #creating the app configurations
   app.config.from_object(config_options[config_name])
   
+  app.config["SECRET_KEY"]='Kevson102'
   # initializing the flask extensions
   bootstrap.init_app(app)
   db.init_app(app)
