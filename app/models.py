@@ -7,7 +7,7 @@ from datetime import datetime
 def load_user(id):
   return User.query.get(int(id))
 
-class User(db.Model):
+class User(UserMixin, db.Model):
   __tablename__ = 'users'
   
   
@@ -19,8 +19,8 @@ class User(db.Model):
   user_bio = db.Column(db.String(1500))
   crimes = db.relationship('Crime', backref='crime', lazy = "dynamic")
   comments = db.relationship('Comment', backref='comment', lazy='dynamic')
-  upvotes = db.relationship('Upvote', backref='upvote', lazy='dynamic')
-  downvotes = db.relationship('Downvote', backref='downvote', lazy='dynamic')
+  upvotes = db.relationship('Upvote', backref='upvotes', lazy='dynamic')
+  downvotes = db.relationship('Downvote', backref='downvotes', lazy='dynamic')
   
   @property
   def password(self):
@@ -43,7 +43,7 @@ class Crime(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   security_issue_description = db.Column(db.String)
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-  comments = db.relationship('Comment', backref='comment', lazy='dynamic')
+  comments = db.relationship('Comment', backref='comments', lazy='dynamic')
   
 class Comment(db.Model):
   __tablename__ = 'comments'
