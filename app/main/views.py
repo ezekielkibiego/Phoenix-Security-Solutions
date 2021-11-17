@@ -1,47 +1,49 @@
 from flask import render_template, request, redirect, url_for, abort, flash
 from . import main
-from ..models import Post, Upvote, Downvote
+from ..models import Comment, User, Pitch, Upvote, Downvote
 from flask_login import login_required, current_user
-from .. import db
+from .. import db, photos
+from .forms import UpdateProfile, PitchForm, CommentForm
 
-@main.route('/like/<int:id>', methods=['GET', 'POST'])
-@login_required
-def like(id):
-    post = Post.query.get(id)
-    if post is None:
+@main.route('/')
+def index():
+    '''
+    View root page function that returns the index page and its data.
+    '''
+    pitch_form = PitchForm()
+    all_pitches = Pitch.query.order_by(Pitch.date_pitched).all()
+    return render_template('index.html', pitches = all_pitches)
+
+@main.route('/user/<uname>')
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
+    if user is None:
         abort(404)
-    like = Upvote.query.filter_by(user_id=current_user.id, post_id=id).first()
-    if like is not None:
-        db.session.delete(like)
-        db.session.commit()
-        flash('You have successfully unupvoted the pitch!')
-        return redirect(url_for('main.index'))
-    new_like = Upvote(
-        user_id=current_user.id,
-        post_id=id
-    )
-    db.session.add(new_like)
-    db.session.commit()
-    flash('You have successfully upvoted the pitch!')
-    return redirect(url_for('main.index'))
-@main.route('/dislike/<int:id>', methods=['GET', 'POST'])
+    return render_template("profile/profile.html", user = user)
+
+@main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required
-def dislike(id):
-    posts = Post.query.get(id)
-    if posts is None:
+def update_profile(uname):
+    user = User.query.filter_by(username = uname).first()
+    if user is None:
         abort(404)
-    dislike = Downvote.query.filter_by(
-        user_id=current_user.id, post_id=id).first()
-    if dislike is not None:
-        db.session.delete(dislike)
+    form = UpdateProfile()
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+        db.session.add(user)
         db.session.commit()
-        flash('You have successfully undownvoted the pitch!')
-        return redirect(url_for('.index'))
-    new_dislike = Downvote(
-        user_id=current_user.id,
-        post_id=id
-    )
-    db.session.add(new_dislike)
-    db.session.commit()
-    flash('You have successfully downvoted the pitch!')
-    return redirect(url_for('.index'))
+        return redirect(url_for('.profile',uname=user.username))
+    return render_template('profile/update.html',form =form)
+
+
+@main.route('/user/<uname>/update/pic',methods= ['POST'])
+@login_required
+def update_pic(uname):
+    user = User.query.filter_by(username = uname).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic_path = path
+        db.session.commit()
+    return redirect(url_for('main.profile',uname=uname))
+
