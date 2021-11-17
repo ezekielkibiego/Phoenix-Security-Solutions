@@ -44,7 +44,7 @@ class Crime(db.Model):
   security_issue_description = db.Column(db.String)
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
   comments = db.relationship('Comment', backref='comments', lazy='dynamic')
-  
+
 class Comment(db.Model):
   __tablename__ = 'comments'
   
