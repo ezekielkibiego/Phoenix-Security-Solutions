@@ -1,0 +1,20 @@
+<div class="navbar navbar-inverse bgcolor" role="navigation" style = "background-color: aqua; color:black">
+
+  <div class="container-fluid">
+    <div class="navbar-header">
+
+      <a href="/" class="navbar-brand" style="color:black; font-size: 30px"><b>Phoenix Security Solutions</b></a>
+    </div>
+
+
+    <ul class="nav navbar-nav navbar-right">
+      {% if current_user.is_authenticated %}
+        <li><a href="{{url_for('auth.logout')}}"style="color:black;"><b>Sign out</b></a></li>
+      {% else %}
+        <li><a href="{{url_for('auth.login')}}" style="color:black;"><b>sign in</b></a></li>
+      {% endif %}
+    </ul>
+
+  </div>
+
+</div>
