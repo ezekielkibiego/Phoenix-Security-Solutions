@@ -1,0 +1,32 @@
+{% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+<!-- Styles block -->
+{% block styles%}
+{{ super() }}
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+  integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="../static/css/crime.css" />
+{% endblock %}
+
+{% block content %}
+
+    <div  i="particles-js"  >  
+        <div class=" row" >
+                
+            <div class="col-md-2"></div>
+            <div class="col-md-8" id="crimeform">
+                <h2 class="text-center ">Drop your Security issues here!</h2>
+                {{wtf.quick_form(crime_form)}}
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+  
+</div>
+   
+{% endblock%}

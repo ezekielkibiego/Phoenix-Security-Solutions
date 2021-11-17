@@ -4,6 +4,6 @@ from wtforms.validators import Required
 
 class CrimeForm(FlaskForm):
     title = StringField('Title', validators=[Required()])
-    location = StringField('location',validators=[Required()])
-    Description = TextAreaField('Your Security Crime Alert', validators=[Required()])
-    submit = SubmitField('Crime Alert')
+    location = StringField('Location',validators=[Required()])
+    security_issue_description = TextAreaField('Your Security Crime Alert', validators=[Required()])
+    submit = SubmitField('Post')
