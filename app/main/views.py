@@ -1,18 +1,11 @@
-from flask import render_template, request, redirect, url_for, abort, flash
+from flask import render_template, request, redirect, url_for, abort
 from . import main
-from ..models import Comment, User, Pitch, Upvote, Downvote
+from ..models import User
 from flask_login import login_required, current_user
 from .. import db, photos
-from .forms import UpdateProfile, PitchForm, CommentForm
+from .forms import UpdateProfile
 
-@main.route('/')
-def index():
-    '''
-    View root page function that returns the index page and its data.
-    '''
-    pitch_form = PitchForm()
-    all_pitches = Pitch.query.order_by(Pitch.date_pitched).all()
-    return render_template('index.html', pitches = all_pitches)
+
 
 @main.route('/user/<uname>')
 def profile(uname):
