@@ -13,10 +13,10 @@ class User(db.Model):
   password = db.Column(db.String(255))
   profile_pic_path = db.Column(db.String)
   user_bio = db.Column(db.String(1500))
-  crimes = db.Relationship('Crime', backref='crime', lazy = "dynamic")
-  comments = db.Relationship('Comment', backref='comment', lazy='dynamic')
-  upvotes = db.Relationship('Upvote', backref='upvote', lazy='dynamic')
-  downvotes = db.Relationship('Downvote', backref='downvote', lazy='dynamic')
+  # crimes = db.Relationship('Crime', backref='crime', lazy = "dynamic")
+  # comments = db.Relationship('Comment', backref='comment', lazy='dynamic')
+  # upvotes = db.Relationship('Upvote', backref='upvote', lazy='dynamic')
+  # downvotes = db.Relationship('Downvote', backref='downvote', lazy='dynamic')
 
 class Crime(db.Model):
   __tablename__='crimes'
@@ -24,7 +24,7 @@ class Crime(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   security_issue_description = db.Column(db.String)
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-  comments = db.Relationship('Comment', backref='comment', lazy='dynamic')
+  # comments = db.Relationship('Comment', backref='comment', lazy='dynamic')
   
 class Comment(db.Model):
   __tablename__ = 'comments'
@@ -32,18 +32,18 @@ class Comment(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   proposed_solution = db.Column(db.String)
   crime_id = db.Column(db.Integer, db.ForeignKey('crimes.id'))
-  user_id = db.Columd(db.Integer, db.ForeignKey('users.id'))
+  user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
   
 class Upvote(db.Model):
   __tablename__ = 'upvotes'
   
   id = db.Column(db.Integer, primary_key=True)
-  user_id = db.Columd(db.Integer, db.ForeignKey('users.id'))
+  user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
   
 class Downvote(db.Model):
   __tablename__='downvotes'
   
   id = db.Column(db.Integer, primary_key=True)
-  user_id = db.Columd(db.Integer, db.ForeignKey('users.id'))
+  user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
   
