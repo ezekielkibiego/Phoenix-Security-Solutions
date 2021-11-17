@@ -46,23 +46,32 @@ class Crime(db.Model):
   comments = db.relationship('Comment', backref='comments', lazy='dynamic')
 
 class Comment(db.Model):
-  __tablename__ = 'comments'
-  
-  id = db.Column(db.Integer, primary_key=True)
-  proposed_solution = db.Column(db.String)
-  crime_id = db.Column(db.Integer, db.ForeignKey('crimes.id'))
-  user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-  
-class Upvote(db.Model):
-  __tablename__ = 'upvotes'
-  
-  id = db.Column(db.Integer, primary_key=True)
-  user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-  
-class Downvote(db.Model):
-  __tablename__='downvotes'
-  
-  id = db.Column(db.Integer, primary_key=True)
-  user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    proposed_solution = db.Column(db.String)
+    crime_id = db.Column(db.Integer, db.ForeignKey('crimes.id'))
+    
 
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls, blog_id):
+        comments = Comment.query.filter_by(blog_id=blog_id).all()
+        return comments
+
+    @classmethod
+    def get_comment_author(cls, user_id):
+        author = User.query.filter_by(id=user_id).first()
+
+        return author
+
+    @classmethod
+    def delete_comment(cls, id):
+        comment = Comment.query.filter_by(id=id).first()
+        db.session.delete(comment)
+        db.session.commit()
   
+
