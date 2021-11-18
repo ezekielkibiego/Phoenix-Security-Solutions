@@ -1,16 +1,5 @@
-/* h1{
-    color: red;
-    align-items: center;
-    text-align: center;
-}
-.card:hover{
-    box-shadow: 0 0 10px , 0 0 20px rgb(112, 108, 108), 0 0 40px rgb(112, 108, 108);
-    border-radius: 10px;
-    background-color: rgb(186, 212, 196);
-}
-.second{
-    margin: 2rem;
-}
+
 body{
-    color: #1A76B9;
-} */
+    background-color: rgba(0, 0, 0, 0.938);
+    color: whitesmoke;
+}
