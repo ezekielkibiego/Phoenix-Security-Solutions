@@ -4,9 +4,9 @@
 
 {% for crime in crimes %}
 
-{{ crime.title }} <br>
-{{ crime.location }} <br>
-{{ crime.description }}
+<h4>Crime Title {{ crime.title }}</h4>
+<p>Crime Location {{ crime.location }} </p>
+<p>Crime Description{{ crime.security_issue_description }}</p>
 <a href="{{url_for('main.crime_details',id=crime.id)}}" class="btn btn-sm btn-primary">Comment</a>
 {% endfor %}
 

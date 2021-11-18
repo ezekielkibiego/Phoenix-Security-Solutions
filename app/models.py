@@ -97,7 +97,7 @@ class Upvote(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
+    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
 
     def save(self):
         db.session.add(self)
@@ -117,7 +117,7 @@ class Downvote(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
+    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
 
     def save(self):
         db.session.add(self)
