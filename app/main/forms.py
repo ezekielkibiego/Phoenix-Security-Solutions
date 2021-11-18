@@ -7,3 +7,11 @@ class CrimeForm(FlaskForm):
     location = StringField('Location',validators=[Required()])
     security_issue_description = TextAreaField('Your Security Crime Alert', validators=[Required()])
     submit = SubmitField('Post')
+    
+class CommentForm(FlaskForm):
+    proposed_solution = TextAreaField('Write your comment', validators=[Required()])
+    submit = SubmitField('Submit')
+
+
+
+

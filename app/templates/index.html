@@ -1,27 +1,131 @@
- {% extends 'base.html' %}
- <!-- Styles block -->
-{% block styles%}
-{{ super() }}
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-  integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel="stylesheet" href="../static/css/index.css" />
-{% endblock %}
- {% block content %}
- <div class="row card second">
-    <h1>Latest Crimes</h1>
-    {% for crime in crimes %}
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 all-blogs">
-      <div class="">
-        <h4><a href="{{url_for('main.crime',id = crime.id)}}">{{crime.title | upper}}</a></h4>
-        <h5>{{crime.description}}</h5>
-        <p>Posted on :<small class="text-muted mr-2"> {{crime.time.strftime('%d-%m-%Y')}}</small> by 
-        
-      </div>
-    </div>   
+{% extends 'base.html' %}
 
-    {% endfor %}
+{% block content %}
+
+<div class="container mt-4">
+    
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+    
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+    
+          <div class="item active">
+            <img src="../static/images/image14.jpg" alt="Los Angeles" style="width:100%; height: 70%; " >
+            <div class="carousel-caption">
+                <h3 class="">Welcome to Phoenix-Security-Solutions</h3>
+                <p class="">sign Up!</p>
+              </div>
+          </div>
+    
+          <div class="item">
+            <img src="../static/images/image17.jpg" alt="Chicago" style="width:100%; height: 70%;">
+            <div class="carousel-caption">
+              <h3>Already have an account?!</h3>
+              <p>Log in!</p>
+            </div>
+          </div>
+        
+          <div class="item">
+            <img src="../static/images/image18.jpg" alt="New York" style="width:100%;  height:70% ; " >
+            <div class="carousel-caption">
+              <h3> <em> Raise a Security Alert</em></h3>
+              <p>Now!</p>
+            </div>
+          </div>
+      
+        </div>
+    
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    
+      <div class="row mt-6">
+        <div class="col-md-12 lh-lg text-center">
+            <h1 class="">Phoenix-Security</h1>
+            
+            <p>
+              At Phoenix-Security, we unlock potential using our comprehensive portfolio of intelligent technology and <br> services. We have extraordinary people who work tirelessly to deliver value to our clients and <br> communities across the Middle East and Africa. We help create smarter businesses for our clients and a <br> better world for everyone. 
+
+            </p>
+            <a href="{{url_for('auth.register')}}" class="btn btn-primary mt-4">Sign Up</a>
+            
+
+
+        </div>
+        
+    </div>
+
+
+
 </div>
- {% endblock %}
-  
+
+<!-- Footer -->
+<div class="footsec">
+<div class="row mt-6">
+  <hr>
+  <div class="col-md-12">
+      <footer class="bg-primary text-center text-white">
+          <!-- Grid container -->
+          <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+              <!-- Facebook -->
+              <a class="btn btn-outline-light btn-floating m-1" href="" role="button"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+        
+              <!-- Twitter -->
+              <a class="btn btn-outline-light btn-floating m-1" href="" role="button"
+                ><i class="fab fa-twitter"></i
+              ></a>
+        
+              <!-- Google -->
+              <a class="btn btn-outline-light btn-floating m-1" href="" role="button"
+                ><i class="fab fa-google"></i
+              ></a>
+        
+              <!-- Instagram -->
+              <a class="btn btn-outline-light btn-floating m-1" href="" role="button"
+                ><i class="fab fa-instagram"></i
+              ></a>
+        
+              <!-- Linkedin -->
+              <a class="btn btn-outline-light btn-floating m-1" href="
+              "
+               role="button"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+        
+              <!-- Github -->
+              <a class="btn btn-outline-light btn-floating m-1" href="" role="button"
+                ><i class="fab fa-github"></i
+              ></a>
+            </section>
+            <!-- Section: Social media -->
+          </div>
+          <!-- Grid container -->
+        
+          <!-- Copyright -->
+          <div class="text-center p-3" style="background-color:#1A76B9;">
+            © 2020 Copyright:
+            <a class="text-white" href="">Phoenix-Security</a>
+          </div>
+          <!-- Copyright -->
+        </footer>
+      </div>
+
+
+{% endblock %}
