@@ -1,6 +1,6 @@
-from . import db
+from . import db,login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin, login_manager
+from flask_login import UserMixin
 from datetime import datetime
 
 @login_manager.user_loader
@@ -62,14 +62,6 @@ class Crime(db.Model):
 
   def __repr__(self):
     return f'Crime {self.title}'
-
-class Comment(db.Model):
-  __tablename__ = 'comments'
-
-  id = db.Column(db.Integer, primary_key=True)
-  proposed_solution = db.Column(db.String)
-  crime_id = db.Column(db.Integer, db.ForeignKey('crimes.id'))
-  user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 class Comment(db.Model):
     __tablename__ = 'comments'

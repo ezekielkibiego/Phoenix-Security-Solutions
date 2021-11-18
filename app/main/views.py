@@ -8,33 +8,33 @@ from flask_login.utils import confirm_login
 
 @main.route('/')
 def index():
-    # crimes = Crime.query.all()
+    crimes = Crime.query.all()
     crimes = Crime.query.order_by(Crime.time.desc())
     return render_template('index.html', crimes = crimes)
 
 @main.route('/crime/<id>')
-# @login_required
+@login_required
 def crime(id):
     crime= Crime.query.get(id)
     return render_template('crime_page.html',crime=crime )
 
 @main.route('/new_crime', methods = ['POST','GET'])
-# @login_required
+@login_required
 def new_crime():
     crime_form = CrimeForm()
     if crime_form.validate_on_submit():
         title = crime_form.title.data
         description = crime_form.security_issue_description.data
         location = crime_form.location.data
-        # user_id =  current_user._get_current_object().id
-        crime = Crime(title=title,location=location,security_issue_description= description)
+        user_id =  current_user._get_current_object().id
+        crime = Crime(title=title,location=location,security_issue_description= description,user_id=user_id)
         crime.save()
         return redirect(url_for('main.index'))
         
     return render_template('crime.html', crime_form = crime_form)
 
 @main.route('/crime/<crime_id>/update', methods = ['GET','POST'])
-# @login_required
+@login_required
 def updatecrime(crime_id):
     crime = Crime.query.get(crime_id)
     if crime.user != current_user:
@@ -51,14 +51,14 @@ def updatecrime(crime_id):
         form.security_issue_description.data = crime.security_issue_description
     return render_template('edit_crime.html', form = form)
 @main.route('/crime/<crime_id>/delete', methods = ['POST'])
-# @login_required
+@login_required
 def delete_crime(crime_id):
     crime = Crime.query.get(crime_id)
     if crime.user != current_user:
         abort(403)
     crime.delete()
     return redirect(url_for('main.index'))
-=======
+
 
 @main.route('/crime/<id>', methods=['GET', 'POST'])
 @login_required
@@ -79,6 +79,9 @@ def crime_details(id):
         form.comment.data = ''
         flash('Your comment has been posted successfully!')
     return render_template('comments.html', crime=crimes, comment=comments, comment_form=form)
+
+@main.route('/like/<int:id>', methods=['GET', 'POST'])
+@login_required
 def like(id):
     crime = Crime.query.get(id)
     if confirm_login is None:
@@ -97,7 +100,7 @@ def like(id):
     db.session.commit()
     flash('You have successfully upvoted!')
     return redirect(url_for('main.index'))
-@main.route('/dislike/:id>', methods=['GET', 'POST'])
+@main.route('/dislike/<int:id>', methods=['GET', 'POST'])
 @login_required
 def dislike(id):
     posts = Crime.query.get(id)
