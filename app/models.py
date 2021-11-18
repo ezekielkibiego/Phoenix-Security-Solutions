@@ -1,6 +1,6 @@
-from . import db, login_manager
+from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+from flask_login import UserMixin, login_manager
 from datetime import datetime
 
 @login_manager.user_loader
@@ -73,5 +73,64 @@ class Comment(db.Model):
         comment = Comment.query.filter_by(id=id).first()
         db.session.delete(comment)
         db.session.commit()
-  
 
+class Upvote(db.Model):
+    __tablename__ = 'upvotes'
+
+    id = db.Column(db.Integer,primary_key=True)
+    upvote = db.Column(db.Integer,default=1)
+    crime_id = db.Column(db.Integer,db.ForeignKey('crimes.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+
+    def save_upvotes(self):
+        db.session.add(self)
+        db.session.commit()
+
+
+    def add_upvotes(cls,id):
+        upvote_crime = Upvote(user = current_user, crime_id=id)
+        upvote_crime.save_upvotes()
+
+    @classmethod
+    def get_upvotes(cls,id):
+        upvote = Upvote.query.filter_by(crime_id=id).all()
+        return upvote
+
+    @classmethod
+    def get_all_upvotes(cls,crime_id):
+        upvotes = Upvote.query.order_by('id').all()
+        return upvotes
+
+    def __repr__(self):
+        return f'{self.user_id}:{self.crime_id}'
+
+class Downvote(db.Model):
+    __tablename__ = 'downvotes'
+
+    id = db.Column(db.Integer,primary_key=True)
+    downvote = db.Column(db.Integer,default=1)
+    crime_id = db.Column(db.Integer,db.ForeignKey('crimes.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+
+    def save_downvotes(self):
+        db.session.add(self)
+        db.session.commit()
+
+
+    def add_downvotes(cls,id):
+        downvote_crime = Downvote(user = current_user, crime_id=id)
+        downvote_crime.save_downvotes()
+
+    
+    @classmethod
+    def get_downvotes(cls,id):
+        downvote = Downvote.query.filter_by(crime_id=id).all()
+        return downvote
+
+    @classmethod
+    def get_all_downvotes(cls,crime_id):
+        downvote = Downvote.query.order_by('id').all()
+        return downvote
+
+    def __repr__(self):
+        return f'{self.user_id}:{self.crime_id}'
