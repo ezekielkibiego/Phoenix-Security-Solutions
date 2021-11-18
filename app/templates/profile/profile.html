@@ -12,8 +12,12 @@
     <div class="col-md-5">
       <h3> {{user.username| capitalize}} </h3>
   
-      {% if user.bio %}
-        <p> {{user.bio}}</p>
+      {% if user.user_bio %}
+       
+        <p> {{user.user_bio}}</p>
+        <p> {{user.email}}</p>
+
+
       {%else%}
         <p> {{user.username| capitalize}} has no bio </p>
       {% endif %}

@@ -1,4 +1,6 @@
 {% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf%}
+{% block content %}
 <body>
     
       <div class="container">
@@ -9,8 +11,11 @@
   
       {% for comment in comment %}
   
-      <p>{{ comment.comment }}</p>
-  
+      <p>{{ comment.proposed_solution }}</p>
+       <a href="{{url_for('main.like',id=comment.id)}}" class="btn btn-sm btn-success">Upvote</a>
+       <a href="{{url_for('main.dislike',id=comment.id)}}" class="btn btn-sm btn-danger">Downvote</a>
     
       {% endfor %}
 </body>
+
+{% endblock %}

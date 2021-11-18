@@ -12,11 +12,11 @@ def index():
     crimes = Crime.query.order_by(Crime.time.desc())
     return render_template('index.html', crimes = crimes)
 
-@main.route('/crime/<id>')
+@main.route('/crime/')
 @login_required
-def crime(id):
-    crime= Crime.query.get(id)
-    return render_template('crime_page.html',crime=crime )
+def crime():
+    crime= Crime.query.all()
+    return render_template('display_crimes.html',crimes=crime )
 
 @main.route('/new_crime', methods = ['POST','GET'])
 @login_required
@@ -26,10 +26,10 @@ def new_crime():
         title = crime_form.title.data
         description = crime_form.security_issue_description.data
         location = crime_form.location.data
-        user_id =  current_user._get_current_object().id
+        user_id =  current_user.id
         crime = Crime(title=title,location=location,security_issue_description= description,user_id=user_id)
         crime.save()
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.crime'))
         
     return render_template('crime.html', crime_form = crime_form)
 
@@ -70,13 +70,13 @@ def crime_details(id):
     form = CommentForm()
     if form.validate_on_submit():
         comment = Comment(
-            comment=form.comment.data,
+            proposed_solution=form.proposed_solution.data,
             crime_id=id,
             user_id=current_user.id
         )
         db.session.add(comment)
         db.session.commit()
-        form.comment.data = ''
+        form.proposed_solution.data = ''
         flash('Your comment has been posted successfully!')
     return render_template('comments.html', crime=crimes, comment=comments, comment_form=form)
 
@@ -97,10 +97,13 @@ def update_profile(uname):
         abort(404)
     form = UpdateProfile()
     if form.validate_on_submit():
-        user.bio = form.bio.data
+        user.user_bio = form.bio.data
+        user.email=form.email.data
+        user.username=form.username.data
+
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('.profile',uname=user.username))
+        return redirect(url_for('.profile',uname=user.username,  user=user))
     return render_template('profile/update.html',form =form)
 
 
@@ -114,44 +117,50 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname, user = user))
+
+@main.route('/like/<int:id>', methods=['GET', 'POST'])
+@login_required
 def like(id):
-    crime = Crime.query.get(id)
-    if confirm_login is None:
+    comment = Comment.query.get(id)
+    if comment is None:
         abort(404)
-    like = Upvote.query.filter_by(user_id=current_user.id, crime_id=id).first()
+    like = Upvote.query.filter_by(user_id=current_user.id, comment_id=id).first()
     if like is not None:
         db.session.delete(like)
         db.session.commit()
-        flash('Your vote has been recorded successfully!')
-        return redirect(url_for('main.index'))
+        flash('You have successfully unupvoted!')
+        return redirect(url_for('main.crime_details'))
     new_like = Upvote(
         user_id=current_user.id,
-        crime_id=id
+        comment_id=id
     )
     db.session.add(new_like)
     db.session.commit()
-    flash('You have successfully upvoted!')
-    return redirect(url_for('main.index'))
+    flash('You have successfully upvoted the pitch!')
+    return redirect(url_for('main.crime_details'))
+
+
 @main.route('/dislike/<int:id>', methods=['GET', 'POST'])
 @login_required
 def dislike(id):
-    posts = Crime.query.get(id)
-    if posts is None:
+    comments = Comment.query.get(id)
+    if comments is None:
         abort(404)
+    
     dislike = Downvote.query.filter_by(
-        user_id=current_user.id, crime_id=id).first()
+        user_id=current_user.id, comment_id=id).first()
     if dislike is not None:
+       
         db.session.delete(dislike)
         db.session.commit()
-        flash('You have successfully downvoted!')
-        return redirect(url_for('.index'))
+        flash('You have successfully undownvoted!')
+        return redirect(url_for('main.crime_details'))
+
     new_dislike = Downvote(
         user_id=current_user.id,
-        post_id=id
+        comment_id=id
     )
     db.session.add(new_dislike)
     db.session.commit()
     flash('You have successfully downvoted!')
-    return redirect(url_for('.index'))
-    
-
+    return redirect(url_for('main.crime_details'))

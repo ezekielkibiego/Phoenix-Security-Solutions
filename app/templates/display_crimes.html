@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for crime in crimes %}
+
+{{ crime.title }} <br>
+{{ crime.location }} <br>
+{{ crime.description }}
+<a href="{{url_for('main.crime_details',id=crime.id)}}" class="btn btn-sm btn-primary">Comment</a>
+{% endfor %}
+
+
+{% endblock %}
