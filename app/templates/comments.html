@@ -1,21 +1,30 @@
 {% extends 'base.html'%}
 {% import 'bootstrap/wtf.html' as wtf%}
+{% block styles%}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+  integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+{% endblock %}
 {% block content %}
+
 <body>
-    
-      <div class="container">
-  
-          {{wtf.quick_form(comment_form)}}
-  
-      </div>
-  
-      {% for comment in comment %}
-  
-      <p>{{ comment.proposed_solution }}</p>
-       <a href="{{url_for('main.like',id=comment.id)}}" class="btn btn-sm btn-success">Upvote</a>
-       <a href="{{url_for('main.dislike',id=comment.id)}}" class="btn btn-sm btn-danger">Downvote</a>
-    
-      {% endfor %}
+
+    <div class="container">
+
+        {{wtf.quick_form(comment_form)}}
+
+        {% for comment in comment %}
+
+        <p>{{ comment.proposed_solution }}</p>
+        <a href="" class="btn btn-sm btn-success">Upvotes</a>
+        <a href="" class="btn btn-sm btn-danger">Downvotes</a>
+
+        {% endfor %}
+
+    </div>
+
+
 </body>
 
 {% endblock %}

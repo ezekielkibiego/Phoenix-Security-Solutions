@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
+{% block styles%}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+{% endblock %}
 
 {% block content %}
 
 {% for crime in crimes %}
 
-<h4>Crime Title {{ crime.title }}</h4>
-<p>Crime Location {{ crime.location }} </p>
-<p>Crime Description{{ crime.security_issue_description }}</p>
-<a href="{{url_for('main.crime_details',id=crime.id)}}" class="btn btn-sm btn-primary">Comment</a>
+<div class="container">
+    <h4>Crime Title {{ crime.title }}</h4>
+    <p>Crime Location {{ crime.location }} </p>
+    <p>Crime Description {{ crime.security_issue_description }}</p>
+    <a href="{{url_for('main.crime_details',id=crime.id)}}" class="btn btn-sm btn-primary">Comment</a>
+</div>
 {% endfor %}
 
 

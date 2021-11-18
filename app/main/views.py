@@ -118,49 +118,49 @@ def update_pic(uname):
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname, user = user))
 
-@main.route('/like/<int:id>', methods=['GET', 'POST'])
-@login_required
-def like(id):
-    comment = Comment.query.get(id)
-    if comment is None:
-        abort(404)
-    like = Upvote.query.filter_by(user_id=current_user.id, comment_id=id).first()
-    if like is not None:
-        db.session.delete(like)
-        db.session.commit()
-        flash('You have successfully unupvoted!')
-        return redirect(url_for('main.crime_details'))
-    new_like = Upvote(
-        user_id=current_user.id,
-        comment_id=id
-    )
-    db.session.add(new_like)
-    db.session.commit()
-    flash('You have successfully upvoted the pitch!')
-    return redirect(url_for('main.crime_details'))
+# @main.route('/like/<int:id>', methods=['GET', 'POST'])
+# @login_required
+# def like(id):
+#     comment = Comment.query.get(id)
+#     if comment is None:
+#         abort(404)
+#     like = Upvote.query.filter_by(user_id=current_user.id, comment_id=id).first()
+#     if like is not None:
+#         db.session.delete(like)
+#         db.session.commit()
+#         flash('You have successfully unupvoted!')
+#         return redirect(url_for('main.like'))
+#     new_like = Upvote(
+#         user_id=current_user.id,
+#         comment_id=id
+#     )
+#     db.session.add(new_like)
+#     db.session.commit()
+#     flash('You have successfully upvoted the pitch!')
+#     return redirect(url_for('main.like'))
 
 
-@main.route('/dislike/<int:id>', methods=['GET', 'POST'])
-@login_required
-def dislike(id):
-    comments = Comment.query.get(id)
-    if comments is None:
-        abort(404)
+# @main.route('/dislike/<int:id>', methods=['GET', 'POST'])
+# @login_required
+# def dislike(id):
+#     comments = Comment.query.get(id)
+#     if comments is None:
+#         abort(404)
     
-    dislike = Downvote.query.filter_by(
-        user_id=current_user.id, comment_id=id).first()
-    if dislike is not None:
+#     dislike = Downvote.query.filter_by(
+#         user_id=current_user.id, comment_id=id).first()
+#     if dislike is not None:
        
-        db.session.delete(dislike)
-        db.session.commit()
-        flash('You have successfully undownvoted!')
-        return redirect(url_for('main.crime_details'))
+#         db.session.delete(dislike)
+#         db.session.commit()
+#         flash('You have successfully undownvoted!')
+#         return redirect(url_for('comments.html'))
 
-    new_dislike = Downvote(
-        user_id=current_user.id,
-        comment_id=id
-    )
-    db.session.add(new_dislike)
-    db.session.commit()
-    flash('You have successfully downvoted!')
-    return redirect(url_for('main.crime_details'))
+#     new_dislike = Downvote(
+#         user_id=current_user.id,
+#         comment_id=id
+#     )
+#     db.session.add(new_dislike)
+#     db.session.commit()
+#     flash('You have successfully downvoted!')
+#     return redirect(url_for('comments.html'))

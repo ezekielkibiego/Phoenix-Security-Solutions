@@ -1,25 +1,38 @@
-<div class="navbar navbar-inverse bgcolor" role="navigation" style = "background-color: aqua; color:black">
 
+
+<div class="navbar navbar-inverse" role="navigation" style="background-color: red; " >
   <div class="container-fluid">
     <div class="navbar-header">
-
-      <a href="/" class="navbar-brand" style="color:black; font-size: 30px"><b>Phoenix Security Solutions</b></a>
-      <a class="navbar-brand" id="post" href="{{url_for('main.new_crime')}}">Crimes</a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/" style="color: white;"> PSS </a>
     </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="/" style="color: white;">Home</a></li>
+        <li><a href="{{url_for('main.new_crime')}}" class="tag" style="color: white;">Crime-Reports</a></li>
+        <li><a href="{{url_for('main.crime_details',id=crime_details)}}" class="tag" style="color: white;">Recommendations</a></li>
 
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if current_user.is_authenticated %}
+        <li class="user"><a href="{{url_for('main.profile',uname=current_user.username)}}" style="color: white;">{{current_user.username}}</a>
+        </li>
 
-    <ul class="nav navbar-nav navbar-right">
-      {% if current_user.is_authenticated %}
-        <div style="display: flex;">
-          <li style="margin-right: 5px;"><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
-          <li>  </li>
-          <li><a href="{{url_for('auth.logout')}}"style="color:black;"><b>Sign out</b></a></li>
-        </div>
-      {% else %}
-        <li><a href="{{url_for('auth.login')}}" style="color:black;"><b>sign in</b></a></li>
-      {% endif %}
-    </ul>
-
+        <li><a href="{{url_for('auth.logout')}}" style="color: white;">Log out</a></li>
+        {% else %}
+        <li><a href="{{url_for('auth.login')}}" style="color: white;">Log in</a></li>
+        {%endif%}
+      </ul>
+    </div>
   </div>
-
 </div>
+
+
+
+
+
