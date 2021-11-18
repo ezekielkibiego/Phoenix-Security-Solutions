@@ -9,15 +9,15 @@ def load_user(id):
 
 class User(UserMixin, db.Model):
   __tablename__ = 'users'
-  
-  
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(255))
   email = db.Column(db.String(255), unique=True, index=True)
   pass_secure = db.Column(db.String(255))
   profile_pic_path = db.Column(db.String)
   user_bio = db.Column(db.String(1500))
+  
   crimes = db.relationship('Crime', backref='crime', lazy = "dynamic")
+
   comments = db.relationship('Comment', backref='comment', lazy='dynamic')
   upvotes = db.relationship('Upvote', backref='upvotes', lazy='dynamic')
   downvotes = db.relationship('Downvote', backref='downvotes', lazy='dynamic')
@@ -39,11 +39,37 @@ class User(UserMixin, db.Model):
 
 class Crime(db.Model):
   __tablename__='crimes'
-  
   id = db.Column(db.Integer, primary_key=True)
+  title= db.Column(db.String(255))
   security_issue_description = db.Column(db.String)
+  location= db.Column(db.String(255))
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+  time = db.Column(db.DateTime, default = datetime.utcnow)
   comments = db.relationship('Comment', backref='comments', lazy='dynamic')
+  
+  def save(self):
+    db.session.add(self)
+    db.session.commit()
+
+  def delete(self):
+    db.session.delete(self)
+    db.session.commit()
+
+  def get_blog(id):
+    crime = Crime.query.filter_by(id=id).first()
+    return crime
+
+  def __repr__(self):
+    return f'Crime {self.title}'
+
+class Comment(db.Model):
+  __tablename__ = 'comments'
+
+  id = db.Column(db.Integer, primary_key=True)
+  proposed_solution = db.Column(db.String)
+  crime_id = db.Column(db.Integer, db.ForeignKey('crimes.id'))
+  user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 class Comment(db.Model):
     __tablename__ = 'comments'
@@ -134,3 +160,4 @@ class Downvote(db.Model):
 
     def __repr__(self):
         return f'{self.user_id}:{self.crime_id}'
+
