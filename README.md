@@ -32,5 +32,7 @@ Download pip in our environment using $ curl https://bootstrap.pypa.io/get-pip.p
 
 Install all the dependencies from the requirements.txt file by running python3.6 pip install -r requirements.txt
 
+Create a start.sh file in the root of the folder and add the following code:
+
 
 
