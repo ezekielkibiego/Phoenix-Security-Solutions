@@ -18,3 +18,7 @@ Edit your profile i.e will be able to add a short bio about yourself and a profi
 python3.8
 virtual environment
 pip
+
+Cloning
+In your terminal:
+
