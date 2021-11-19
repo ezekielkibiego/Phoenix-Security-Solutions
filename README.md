@@ -9,3 +9,4 @@ As a user of the web application you will be able to:
 
 Create an account
 Log in
+Create an idea
