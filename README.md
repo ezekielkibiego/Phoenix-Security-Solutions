@@ -15,4 +15,6 @@ See comments given on an idea.
 Edit your profile i.e will be able to add a short bio about yourself and a profile picture.
 
 ## Getting started
-
+python3.8
+virtual environment
+pip
