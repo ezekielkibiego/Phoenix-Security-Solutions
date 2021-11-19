@@ -11,3 +11,4 @@ Create an account
 Log in
 Create an idea
 Comment on an idea
+See comments given on an idea
