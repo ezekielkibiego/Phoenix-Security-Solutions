@@ -22,3 +22,8 @@ pip
 Cloning
 In your terminal:
 $ git clone git@github.com:ezekielkibiego/Phoenix-Security-Solutions.git
+
+## Running the Application
+
+
+
