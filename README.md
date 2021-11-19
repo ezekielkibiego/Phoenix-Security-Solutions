@@ -37,5 +37,8 @@ Create a start.sh file in the root of the folder and add the following code:
  export MAIL_USERNAME=<your-email-address>
  export MAIL_PASSWORD=<your-email-password>
  export SECRET_KEY=<your-secret-key>
+ Edit the configuration instance in manage.py by commenting on production instance and un commenting development instanceEdit the configuration instance in manage.py by commenting on production instance and un commenting development instance
+
+ 
 
 
