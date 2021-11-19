@@ -53,6 +53,9 @@ To run the tests for the class file:
   Flask
   HTML
   Bootstrap
+This application is developed using Python3.8, Flask, HTML and Bootstrap
+
+## live link:
 
 
 
