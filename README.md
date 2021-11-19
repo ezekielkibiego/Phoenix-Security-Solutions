@@ -30,5 +30,7 @@ Activate virtual environment using $ source virtual/bin/activate
 
 Download pip in our environment using $ curl https://bootstrap.pypa.io/get-pip.py | python
 
+Install all the dependencies from the requirements.txt file by running python3.6 pip install -r requirements.txt
+
 
 
