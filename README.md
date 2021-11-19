@@ -21,4 +21,4 @@ pip
 
 Cloning
 In your terminal:
-
+$ git clone 
