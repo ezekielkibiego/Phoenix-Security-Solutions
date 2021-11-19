@@ -51,5 +51,7 @@ To run the tests for the class file:
   ## Technologies Used
   Python3.8
   Flask
+  HTML
+
 
 
