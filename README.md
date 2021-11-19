@@ -41,5 +41,9 @@ Create a start.sh file in the root of the folder and add the following code:
 
  To run the application, in your terminal:
 
+  $ chmod a+x start.sh
+  $ ./start.sh
+Testing the Application
+To run the tests for the class file:
 
 
