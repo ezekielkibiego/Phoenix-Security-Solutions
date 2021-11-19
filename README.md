@@ -48,3 +48,6 @@ To run the tests for the class file:
 
   $ python3.8 manage.py server
 
+  ## Technologies Used
+  
+
