@@ -6,4 +6,4 @@ The primary goal of this project is to present a credible platform whereby any o
 
 ## Features
 As a user of the web application you will be able to:
-
+Create an account
