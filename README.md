@@ -46,4 +46,5 @@ Create a start.sh file in the root of the folder and add the following code:
 Testing the Application
 To run the tests for the class file:
 
+  $ python3.8 manage.py server
 
