@@ -13,3 +13,6 @@ Create an idea
 Comment on an idea
 See comments given on an idea.
 Edit your profile i.e will be able to add a short bio about yourself and a profile picture.
+
+## Getting started
+
