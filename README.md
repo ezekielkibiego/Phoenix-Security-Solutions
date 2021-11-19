@@ -62,6 +62,7 @@ This application is developed using Python3.8, Flask, HTML and Bootstrap
 Here is a working live link: https://phoenixsecuritysolutions.herokuapp.com/
 
 ## License
+MIT License
 
 
 
