@@ -52,6 +52,8 @@ To run the tests for the class file:
   Python3.8
   Flask
   HTML
+  Bootstrap
+
 
 
 
