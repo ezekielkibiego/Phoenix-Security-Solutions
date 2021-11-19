@@ -1,5 +1,8 @@
-# Title
-Phoenix Security Solutions(PSS)
+## TITLE
+## {Phoenix Security Solutions(PSS)}
+#### {A website that will act as a hub to hold real solutions and curb crime levels .}, {November 9th 2021}
+#### By **{Ezakiel Nyambane, Albunus Nyalita,Elezibeth Gikonyo, Mohammed Abdi}**
+
 
 # Description
 The primary goal of this project is to present a credible platform whereby any one with a suggestion on how a particular crime can be subverted to bring up the idea. Other people with access to the application can up-vote or down-vote the proposed solution and based on the feasibility of the idea and the number of votes, the relevant authorities can act on the suggestions.
